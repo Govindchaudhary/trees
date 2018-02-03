@@ -18,7 +18,7 @@ def inorder(root):
     if root is None:
        return
     inorder(root.leftChild)
-    print root.key
+    print root.key,
     inorder(root.rightChild)
 
 def minValueNode(node):
@@ -76,20 +76,49 @@ def deleteNode(root, key):
     
     return root 
 
+def trimBST(root,minVal,maxVal):
+    if root is None:
+       return
+    root.leftChild = trimBST(root.leftChild,minVal,maxVal)
+    root.rightChild = trimBST(root.rightChild,minVal,maxVal)
+
+'''
+If current node’s value is between min and max (min<=node<=max)
+ then there’s no action need to be taken, so we return the reference to the node itself
+'''
+    if minVal <= root.key <= maxVal:
+         return root
+
+'''
+If current node’s value is less than min, then we return the reference to its right subtree, 
+and discard the left subtree. Because if a node’s value is less than min, 
+then its left children are definitely less than min since this is a binary search tree.
+But its right children may or may not be less than min we can’t be sure, 
+so we return the reference to it.
+
+'''
+    if root.key<minVal:
+        return root.rightChild
+        
+    if root.key>maxVal:
+        return root.leftChild
+
 root = None
-root = insert(root, 50)
-root = insert(root, 30)
-root = insert(root, 20)
-root = insert(root, 40)
-root = insert(root, 70)
-root = insert(root, 60)
-root = insert(root, 80)
-root = insert(root, 90)
+root = insert(root, 8)
+root = insert(root, 3)
+root = insert(root, 10)
+root = insert(root, 1)
+root = insert(root, 6)
+root = insert(root, 4)
+root = insert(root, 7)
+root = insert(root, 13)
 inorder(root)
-root = deleteNode(root,20)
-print 'root after deletion is:'
-print root.key
-print 'after deletion:'
+#root = deleteNode(root,6)
+
+#print 'after deletion:'
+print 'after trimming:'
+trimBST(root,5,13)
+
 inorder(root)
 
 
