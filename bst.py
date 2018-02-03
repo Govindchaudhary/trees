@@ -86,7 +86,7 @@ root = insert(root, 60)
 root = insert(root, 80)
 root = insert(root, 90)
 inorder(root)
-root = deleteNode(root,20)
+root = deleteNode(root,50)
 print 'root after deletion is:'
 print root.key
 print 'after deletion:'
